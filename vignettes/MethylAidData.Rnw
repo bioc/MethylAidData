@@ -1,0 +1,88 @@
+% \VignetteIndexEntry{MethylAid-summarized data on 2800 Illumina 450k array samples}  
+% \VignettePackage{MethylAidData}
+% \VignetteEngine{knitr::knitr}
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel} %%remove tildes e.q. in bibliography
+
+<<style, eval=TRUE, echo=FALSE, results="asis">>=
+BiocStyle::latex()
+@
+
+\author{Maarten van Iterson, Elmar Tobi, Roderick Slieker, 
+        Wouter den Hollander, Rene Luijk,
+  \\Eline Slagboom and Bas Heijmans
+  \\Department of Molecular Epidemiology,
+  \\Leiden University Medical Center, Leiden, The Netherlands}
+
+\title{MethylAid-summarized data on 2800 Illumina 450k array samples}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\Biocpkg{MethylAidData} contains \Biocpkg{MethylAid}-summarized data
+on 2800 Illumina 450k array samples. These DNA methylation samples are a
+subset from a large-scale multiple omics study conducted by several Dutch
+Biobanks; the BIOS consortium
+(\url{http://www.bbmri.nl/en-gb/activities/rainbow-projects/bios}). The raw
+Illumina 450k array data, idat-files, will be made available through
+the EGA archive (\url{https://www.ebi.ac.uk/ega/home}).
+
+The summarization performed by \Biocpkg{MethylAid}
+entails the following for each sample:
+\begin{enumerate}
+\item calculation of the median Methylated and Unmethylation
+  intensities
+\item extraction of all quality control probe intensities
+\item construction of quality control metrics e.g. sample-dependent,
+  sample-independent and detection p-values
+\item storing everything efficiently to allow fast rendering of the
+  various quality control plots provided by \Biocpkg{MethylAid},  
+\end{enumerate}
+see van Iterson \emph{et al.}\cite{Iterson2014} for detailed
+description of \Biocpkg{MethylAid}.
+
+\section{Preparation of the data}
+The raw Illumina 450k array data, idat-files, will be made available
+this summer from EGA archive (accession number:EGAS00\#\#\#). Access to
+the data must be approved by the Data Access Committee (\#\#\#). Once the
+raw idat-files have been downloaded and a targets file is constructed,
+\Biocpkg{MethylAid} can be used to summarize the data and perform
+quality control using the interactive \Rpackage{shiny}\cite{shiny} application.
+
+Data sets of this size are preferably summarized in
+parallel and batches to overcome long run times or memory
+issues. \Biocpkg{MethylAid} provides several options to do this
+using the \Biocpkg{BiocParallel}-package\cite{biocparallel}. For example, if multiple
+cores are available these could be used like this:
+<<exampleDataLarge, eval=FALSE>>=
+library(MethylAid)
+targets ##constructed from EGA
+BPPARAM <- MulticoreParam(workers = 8, verbose=TRUE)
+summarize(targets, batchSize = 100, BPPARAM = BPPARAM, file="exampleDataLarge")
+@
+Another option would be thus use a cluster, see the vignette of
+\Biocpkg{MethylAid} how to set this up.
+
+\section{Using MethylAidData}
+The summarized data contained in \Biocpkg{MethylAidData} can be used in
+two ways, 1) to explore a large data set using \Biocpkg{MethylAid}
+and 2) use this data as a background data set on top of own
+data. Since version 1.1.4, \Biocpkg{MethylAid} has the functionality
+to show as background data set in the filter control plots. As such it
+can be used as a reference data set and can give guidance to when
+removing outlying samples. Furthermore, the data gives confirmation of
+the default thresholds used to determine outlying samples. 
+
+Additionally, since \Biocpkg{MethylAid}(1.1.4) functionality is added
+to construct your own background data and several
+summarizedData-objects can be merged to give one larger
+summarizedData-object to use as your own reference or to determine
+filter thresholds, for example for hydroxymethylation data for which
+there are currently no thresholds available.
+
+\bibliography{MethylAidData}
+
+\end{document}

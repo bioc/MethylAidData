@@ -1,0 +1,18 @@
+Package: MethylAidData
+Type: Package
+Title: MethylAid-summarized data on 2800 Illumina 450k array samples
+Version: 0.99.5
+Date: 2015-04-01
+Author: Maarten van Iterson, Elmar. Tobi, Roderick Slieker, Wouter den
+        Hollander, Rene Luijk and Bas Heijmans
+Maintainer: M. van Iterson <m.van_iterson@lumc.nl>
+Description: A data package containing summarized Illumina 450k array
+        data on 2800 samples. The data can be use as a background data
+        set in the interactive application.
+URL: http://shiny.bioexp.nl/MethylAid
+License: GPL (>= 2)
+VignetteBuilder: knitr
+biocViews: ExperimentData
+Depends: MethylAid, R (>= 3.2)
+Suggests: BiocParallel, BiocStyle, knitr
+NeedsCompilation: no
