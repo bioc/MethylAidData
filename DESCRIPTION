@@ -1,7 +1,7 @@
 Package: MethylAidData
 Type: Package
 Title: MethylAid-summarized data on 2800 Illumina 450k array samples
-Version: 1.5.1
+Version: 1.5.2
 Date: 2015-04-01
 Author: Maarten van Iterson, Elmar. Tobi, Roderick Slieker, Wouter den
         Hollander, Rene Luijk and Bas Heijmans
