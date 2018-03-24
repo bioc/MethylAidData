@@ -10,8 +10,14 @@ be use as a background data set in the interactive application.}
 \format{summarizedData-object}
 \keyword{datasets}
 \examples{
+library(MethylAid)
 data(exampleDataLarge)
 data(exampleData)
-\dontrun{visualize(exampleData, background=exampleDataLarge)} 
+\dontrun{visualize(exampleData, background=exampleDataLarge)}
+library(minfiData)
+baseDir <- system.file("extdata", package="minfiData")
+targets <- read.metharray.sheet(baseDir)
+data <- summarize(targets)
+\dontrun{visualize(data, background=exampleDataLarge)}
 }
   

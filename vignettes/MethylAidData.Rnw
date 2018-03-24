@@ -9,13 +9,22 @@
 BiocStyle::latex()
 @
 
-\author{Maarten van Iterson, Elmar Tobi, Roderick Slieker, 
-        Wouter den Hollander, Rene Luijk,
-  \\Eline Slagboom and Bas Heijmans
-  \\Department of Molecular Epidemiology,
-  \\Leiden University Medical Center, Leiden, The Netherlands}
+\bioctitle[MethylAid-summarized data]{MethylAid-summarized data for Illumina 450k (N=2800) and EPIC (N=2620) arrays}
 
-\title{MethylAid-summarized data on 2800 Illumina 450k array samples}
+\author[1]{Davy Cats}
+\author[2]{Tyler J Gorrie-Stone}
+\author[1]{Bastiaan T Heijmans}
+\author[3,4]{John W Holloway}
+\author{BIOS Consortium}
+\author[1]{Maarten van Iterson}
+\author[4]{Faisal I. Rezwan}
+\author[2]{Leonard Schalkwyk}
+
+\affil[1]{Dept. of Biomedical Data Sciences, Leiden University Medical Center, Leiden, The Netherlands}
+\affil[2]{School of Biological Sciences, University of Essex, Essex, UK.}
+\affil[3]{Human Development and Health, Faculty of Medicine, University of Southampton, UK}
+\affil[4]{Clinical and Experimental Sciences, Faculty of Medicine, University of Southampton, UK}
+
 
 \begin{document}
 
@@ -23,17 +32,26 @@ BiocStyle::latex()
 
 \section{Introduction}
 \Biocpkg{MethylAidData} contains \Biocpkg{MethylAid}-summarized data
-on 2800 Illumina 450k array samples. These DNA methylation samples are a
-subset from a large-scale multiple omics study conducted by several Dutch
-Biobanks; the BIOS consortium
-(\url{http://www.bbmri.nl/en-gb/activities/rainbow-projects/bios}). The raw
-Illumina 450k array data, idat-files, will be made available through
-the EGA archive (\url{https://www.ebi.ac.uk/ega/home}).
+on 2800 Illumina 450k array samples and 2620 Illumina EPIC/850k array
+that can be used as reference when processing newly generated
+methylation array data using \Biocpkg{MethylAid}.
+
+The data on 450k arrays is based on a subset from a
+large-scale multiple omics study conducted by several Dutch Biobanks;
+the BIOS consortium
+(http://www.bbmri.nl/en-gb/activities/rainbow-projects/bios)
+\cite{Bonder2017}. The raw Illumina 450k array data, idat-files, are
+available through the EGA archive
+(https://ega-archive.org/dacs/EGAC00001000277).
+
+MethylAid-summarized data for EPIC methylation arrays stems from
+studies led by the University of Southampton (N=1434)
+\cite{Burney1994} and the University of Essex (N=1186).
 
 The summarization performed by \Biocpkg{MethylAid}
 entails the following for each sample:
 \begin{enumerate}
-\item calculation of the median Methylated and Unmethylation
+\item calculation of the median Methylated and Unmethylated
   intensities
 \item extraction of all quality control probe intensities
 \item construction of quality control metrics e.g. sample-dependent,
@@ -45,24 +63,25 @@ see van Iterson \emph{et al.}\cite{Iterson2014} for detailed
 description of \Biocpkg{MethylAid}.
 
 \section{Preparation of the data}
-The raw Illumina 450k array data, idat-files, will be made available
-this summer from EGA archive (accession number:EGAS00\#\#\#). Access to
-the data must be approved by the Data Access Committee (\#\#\#). Once the
-raw idat-files have been downloaded and a targets file is constructed,
-\Biocpkg{MethylAid} can be used to summarize the data and perform
-quality control using the interactive \Rpackage{shiny}\cite{shiny} application.
+Using raw idat-files (e.g. EGA accession number EGAC00001000277 after
+approval by Data Access Committee). Once the raw idat-files have been
+downloaded and a targets file is constructed, \Biocpkg{MethylAid} can
+be used to summarize the data and perform quality control using the
+interactive \Rpackage{shiny}\cite{shiny} application.
 
-Data sets of this size are preferably summarized in
-parallel and batches to overcome long run times or memory
-issues. \Biocpkg{MethylAid} provides several options to do this
-using the \Biocpkg{BiocParallel}-package\cite{biocparallel}. For example, if multiple
-cores are available these could be used like this:
+Data sets of this size are preferably summarized in parallel and
+batches to overcome long run times or memory
+issues. \Biocpkg{MethylAid} provides several options to do this using
+the \Biocpkg{BiocParallel}-package\cite{biocparallel}. For example, if
+multiple cores are available these could be used like this:
+
 <<exampleDataLarge, eval=FALSE>>=
 library(MethylAid)
 targets ##constructed from EGA
 BPPARAM <- MulticoreParam(workers = 8, verbose=TRUE)
 summarize(targets, batchSize = 100, BPPARAM = BPPARAM, file="exampleDataLarge")
 @
+
 Another option would be thus use a cluster, see the vignette of
 \Biocpkg{MethylAid} how to set this up.
 
