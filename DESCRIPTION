@@ -2,7 +2,7 @@ Package: MethylAidData
 Type: Package
 Title: MethylAid-summarized data for 2800 Illumina 450k array samples
        and 2620 EPIC array samples
-Version: 1.22.0
+Version: 1.23.0
 Date: 2018-03-24
 Author: Davy Cats, Tyler J. Gorrie-Stone, Bastiaan T. Heijmans, John
 	W. Holloway, BIOS Consortium, Maarten van Iterson, Faisal I. Rezwam,
